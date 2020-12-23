@@ -8,24 +8,22 @@ import { Form, Container } from "./styles";
 
 let options1 = [];
 
-async function copyOptionsForAsync() {
+async function mountUsers() {
   let response = await apiJson.get("/users");
   response.data.forEach((element) => {
-    console.log(element);
-    let dropDownEle = {
+    let elementData = {
       index: element.id,
       label: element.name,
       value: element.username,
     };
-    options1.push(dropDownEle);
+    options1.push(elementData);
   });
 }
-
 
 class Debts extends Component {
   constructor() {
     super();
-    copyOptionsForAsync();
+    mountUsers();
   }
 
   state = {
@@ -36,13 +34,9 @@ class Debts extends Component {
     error: "",
   };
 
-  handleChange(name){
-    console.log(name)
-    let state = this.state;
-    state.user_id = name.index;
-    this.setState({ reason: state.user_id })
+  handleChange(name) {
+    this.setState({ user_id: name.index });
   }
-
 
   handleDebts = async (e) => {
     e.preventDefault();
@@ -67,7 +61,13 @@ class Debts extends Component {
       <Container>
         <Form onSubmit={this.handleDebts}>
           {this.state.error && <p>{this.state.error}</p>}
-          <Select name="option" options={options1} value={this.state.user_id} onChange={this.handleChange.bind((this))} />
+          <Select
+            name="option"
+            options={options1}
+            value={this.state.user_id}
+            selected={this.state.user_id}
+            onChange={this.handleChange.bind(this)}
+          />
           <input
             type="text"
             placeholder="Motivo"
@@ -83,7 +83,7 @@ class Debts extends Component {
             placeholder="Valor"
             onChange={(e) => this.setState({ value: e.target.value })}
           />
-          <button type="submit">Cadastrar grátis</button>
+          <button type="submit">Cadastrar Dívida</button>
           <hr />
           <Link to="/">Fazer login</Link>
         </Form>

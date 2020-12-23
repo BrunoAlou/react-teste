@@ -39,12 +39,12 @@ export const Form = styled.form`
 
   button {
     color: #fff;
-    font-size: 16px;
-    background: #fc6963;
-    height: 56px;
+    font-size: 11px;
+    background: #4BB543;
+    height: 35px;
     border: 0;
     border-radius: 5px;
-    width: 100%;
+    width: 70%;
   }
   hr {
     margin: 20px 0;
