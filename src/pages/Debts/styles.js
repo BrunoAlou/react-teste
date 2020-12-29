@@ -58,4 +58,17 @@ export const Form = styled.form`
     color: #999;
     text-decoration: none;
   }
+  select {
+    flex: 1;
+    height: 46px;
+    width: 115%;
+    margin-bottom: 15px;
+    padding: 0 20px;
+    color: #777;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    &::placeholder {
+      color: #999;
+    }
+  }
 `;

@@ -1,51 +1,46 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import Select from "react-select";
-import apiAdonis from "../../services/apiAdonis";
-import apiJson from "../../services/apiJson";
-
 import { Form, Container } from "./styles";
-
-let options1 = [];
-
-async function mountUsers() {
-  let response = await apiJson.get("/users");
-  response.data.forEach((element) => {
-    let elementData = {
-      index: element.id,
-      label: element.name,
-      value: element.username,
-    };
-    options1.push(elementData);
-  });
-}
+import apiAdonis from "../../services/apiAdonis";
 
 class Debts extends Component {
-  constructor() {
-    super();
-    mountUsers();
-  }
-
   state = {
-    user_id: "",
-    reason: "",
-    date: "",
-    value: "",
-    error: "",
+    users: [],
+    selectedUser: {name : "" , id : 0},
+    validationError: "",
   };
 
-  handleChange(name) {
-    this.setState({ user_id: name.index });
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let usersArray = data;
+        this.setState({
+          users: [
+            {
+              name: "",
+              id: -1,
+              username: "Usuário",
+            },
+          ].concat(usersArray),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   handleDebts = async (e) => {
     e.preventDefault();
-    const { user_id, reason, date, value } = this.state;
-    if (!user_id || !reason || !date || !value) {
+    let selectedIndex = this.state.selectedUser.id
+    const { reason, date, value } = this.state;
+    if (!selectedIndex || !reason || !date || !value) {
       this.setState({ error: "Preencha todos os dados para se cadastrar" });
     } else {
       try {
-        await apiAdonis.post("/debt", { user_id, reason, date, value });
+        await apiAdonis.post("/debt", { selectedIndex, reason, date, value });
         this.props.history.push("/");
       } catch (err) {
         console.log(err);
@@ -61,13 +56,23 @@ class Debts extends Component {
       <Container>
         <Form onSubmit={this.handleDebts}>
           {this.state.error && <p>{this.state.error}</p>}
-          <Select
-            name="option"
-            options={options1}
-            value={this.state.user_id}
-            selected={this.state.user_id}
-            onChange={this.handleChange.bind(this)}
-          />
+          <select
+            value={this.state.selectedUser.name}
+            onChange={(e) =>
+              this.setState({
+                
+                selectedUser: {name : e.target.value, id : e.target.selectedIndex},
+                validationError:
+                  e.target.value === "" ? "You must select an User" : "",
+              })            }
+          >
+            {this.state.users.map((user) => (
+              <option key={user.id} value={user.name}>
+                {user.username}
+              </option>
+            ))}
+          </select>
+
           <input
             type="text"
             placeholder="Motivo"
