@@ -1,10 +1,22 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+`;
+
+export const ContainerForm = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+`;
+
+export const ContainerList = styled.div`
+  display: grid;
+  padding: 25px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Form = styled.form`
@@ -40,7 +52,7 @@ export const Form = styled.form`
   button {
     color: #fff;
     font-size: 11px;
-    background: #4BB543;
+    background: #4bb543;
     height: 35px;
     border: 0;
     border-radius: 5px;

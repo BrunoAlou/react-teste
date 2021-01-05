@@ -31,6 +31,7 @@ class SignUp extends Component {
   render() {
     return (
       <Container>
+        <grid>
         <Form onSubmit={this.handleSignUp}>
           {this.state.error && <p>{this.state.error}</p>}
           <input
@@ -52,6 +53,7 @@ class SignUp extends Component {
           <hr />
           <Link to="/">Fazer login</Link>
         </Form>
+        </grid>
       </Container>
     );
   }
