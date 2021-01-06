@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: grid;
   grid-template-columns: auto auto;
+  background : #f5f5dc;
+
 `;
 
 export const ContainerForm = styled.div`
@@ -17,11 +19,22 @@ export const ContainerList = styled.div`
   padding: 25px;
   align-items: center;
   justify-content: center;
+  div{
+    background : #f5f5;
+    padding : 20px;
+    margin : 20px;
+    p{
+      text-align : left;
+    }
+    ul{
+      text-align : right;
+    }
+  }
 `;
 
 export const Form = styled.form`
   width: 300px;
-  height: 300px;
+  height: 400px;
   background: #fff;
   padding: 20px;
   display: flex;
@@ -70,6 +83,10 @@ export const Form = styled.form`
     color: #999;
     text-decoration: none;
   }
+  Link{
+    padding: 3px;
+    margin: 2px;
+  }
   select {
     flex: 1;
     height: 46px;
@@ -83,4 +100,6 @@ export const Form = styled.form`
       color: #999;
     }
   }
+
+
 `;

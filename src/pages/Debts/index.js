@@ -77,17 +77,24 @@ class Debts extends Component {
     return (
       <Container>
         <ContainerList>
+          <h1>Listagem de Dívidas</h1>
           {this.state.debts.map((debt) => (
             <div key={debt.id} value={debt.id}>
-              <p>{debt.user_name}</p>
-              <p>{debt.reason}</p>
-              <p>{debt.date}</p>
-              <p>{debt.value}</p>  
+              <p>Usuário:</p>
+              <ul>{debt.user_name}</ul>
+              <p>Descrição:</p>
+              <ul>{debt.reason}</ul>
+              <p>Data :</p>
+              <ul>{debt.date}</ul>
+              <p>Valor: </p>                
+              <ul>{debt.value}</ul>
+
             </div>
           ))}
         </ContainerList>
         <ContainerForm>
           <Form onSubmit={this.handleDebts}>
+          <h1>Cadastro de Dívidas</h1>
             {this.state.error && <p>{this.state.error}</p>}
             <select
               value={this.state.selectedUser.name}
@@ -126,8 +133,10 @@ class Debts extends Component {
             />
             <button type="submit">Cadastrar Dívida</button>
             <hr />
-            <Link to="/">Login</Link>
-            <Link to="/">Logout</Link>
+            <div>
+              <Link to="/" style={{ padding: '15px' }}>Login</Link>
+              <Link to="/" style={{ padding: '15px' }}>Logout</Link>
+            </div>
           </Form>
         </ContainerForm>
       </Container>
