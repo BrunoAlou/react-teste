@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Form, Container, ContainerForm, ContainerList } from "./styles";
+import {
+  Form,
+  FormDebts,
+  Container,
+  ContainerForm,
+  ContainerList,
+} from "./styles";
+import { Card } from "react-bootstrap";
 
 import apiAdonis from "../../services/apiAdonis";
 import apiJson from "../../services/apiJson";
@@ -74,6 +81,24 @@ class Debts extends Component {
       }
     }
   };
+  removeDebts() {
+    let user_id = this.state.selectedUser.id;
+    let user_name = this.state.selectedUser.name;
+    const { reason, date, value } = this.state;
+
+    if (!user_id || !user_name || !reason || !date || !value) {
+      this.setState({ error: "Preencha todos os dados para se cadastrar" });
+    } else {
+      try {
+
+      } catch (err) {
+        console.log(err);
+        this.setState({
+          error: "Ocorreu um erro ao registrar sua dívida. T.T",
+        });
+      }
+    }
+  };
 
   render() {
     return (
@@ -81,18 +106,53 @@ class Debts extends Component {
         <ContainerList>
           <h1>Listagem de Dívidas</h1>
           {this.state.debts.map((debt) => (
-            <div key={debt.id} value={debt.id}>
-              <p>Usuário:</p>
-              <ul>{debt.user_name}</ul>
-              <p>Descrição:</p>
-              <ul>{debt.reason}</ul>
-              <p>Data :</p>
-              <ul>{debt.date}</ul>
-              <p>Valor: </p>
-              <ul>{debt.value}</ul>
-              <button type="submit">Remover Dívida</button>
-              <button type="submit">Editar Dívida</button>
-            </div>
+            <>
+              <Card border="info" style={{ width: "18rem", display: "flex" }}>
+                <Card.Body style={{ display: "grid-inline" }}>
+                  <Card.Subtitle style={{ padding: "2px" , margin: "2px" }}>Devedor: {debt.user_name}</Card.Subtitle>
+                  <FormDebts
+                    style={{ width: "100%" }}
+                    onSubmit={this.handleDebts}
+                  >
+                    <Card.Text>
+                      <input
+                        type="text"
+                        disabled
+                        placeholder="data"
+                        value={debt.date}
+                        onChange={(e) =>
+                          this.setState({ reason: e.target.value })
+                        }
+                      />{" "}
+                      <input
+                        type="text"
+                        disabled
+                        placeholder="Motivo"
+                        value={debt.reason}
+                        onChange={(e) =>
+                          this.setState({ reason: e.target.value })
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="Valor"
+                        value={debt.value}
+                        disabled
+                        onChange={(e) =>
+                          this.setState({ reason: e.target.value })
+                        }
+                      />{" "}
+                    </Card.Text>
+                  </FormDebts>
+                  <Card.Link style={{ padding: "5px" }} href="#">
+                    Editar Dívida
+                  </Card.Link>
+                  <Card.Link onClick={this.removeDebts} style={{ padding: "5px" }} href="#">
+                    Remover Dívida
+                  </Card.Link>
+                </Card.Body>
+              </Card>
+            </>
           ))}
         </ContainerList>
         <ContainerForm>

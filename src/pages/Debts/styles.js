@@ -20,9 +20,9 @@ export const ContainerList = styled.div`
   align-items: center;
   justify-content: center;
   div{
-    background : #f5f5;
-    padding : 20px;
-    margin : 20px;
+    padding : 15px;
+    margin : 15px;
+    background: #fff;
     p{
       text-align : left;
     }
@@ -99,7 +99,21 @@ export const Form = styled.form`
     &::placeholder {
       color: #999;
     }
+  }`;
+
+export const FormDebts = styled.form`
+  padding: 20px;
+  display: contents;
+  p {
+    color: #ff3333;
+    width: 100%;
   }
-
-
+  input {
+    height: 30px;
+    width: 100%;
+    border: 1px solid #ddd;
+    &::placeholder {
+      color: #999;
+    }
+  }
 `;
