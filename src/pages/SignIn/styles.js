@@ -6,16 +6,22 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background : #f5f5dc;
+
+
 `;
 
 export const Form = styled.form`
   width: 400px;
-  height: 250px;
+  height: 300px;
   background: #fff;
-  padding: 20px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  span{
+    color: red;
+  }
   img {
     width: 100px;
     margin: 10px 0 40px;
@@ -30,7 +36,7 @@ export const Form = styled.form`
   }
   input {
     flex: 1;
-    height: 46px;
+    height: 20px;
     margin-bottom: 15px;
     padding: 0 20px;
     color: #777;

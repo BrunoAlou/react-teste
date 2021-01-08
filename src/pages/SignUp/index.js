@@ -33,7 +33,7 @@ class SignUp extends Component {
       <Container>
         <grid>
         <Form onSubmit={this.handleSignUp}>
-          {this.state.error && <p>{this.state.error}</p>}
+          {this.state.error && <span>{this.state.error}</span>}
           <input
             type="text"
             placeholder="Nome de usuário"

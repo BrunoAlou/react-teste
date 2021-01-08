@@ -10,10 +10,10 @@ class SignIn extends Component {
   state = {
     email: "",
     password: "",
-    error: ""
+    error: "",
   };
 
-  handleSignIn = async e => {
+  handleSignIn = async (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     if (!email || !password) {
@@ -25,8 +25,7 @@ class SignIn extends Component {
         this.props.history.push("/debts");
       } catch (err) {
         this.setState({
-          error:
-            "Houve um problema com o login, verifique suas credenciais. T.T"
+          error: "Usuário ou Senha não conferem. T.T",
         });
       }
     }
@@ -36,16 +35,16 @@ class SignIn extends Component {
     return (
       <Container>
         <Form onSubmit={this.handleSignIn}>
-          {this.state.error && <p>{this.state.error}</p>}
+          {this.state.error && <span>{this.state.error}</span>}
           <input
             type="email"
             placeholder="Endereço de e-mail"
-            onChange={e => this.setState({ email: e.target.value })}
+            onChange={(e) => this.setState({ email: e.target.value })}
           />
           <input
             type="password"
             placeholder="Senha"
-            onChange={e => this.setState({ password: e.target.value })}
+            onChange={(e) => this.setState({ password: e.target.value })}
           />
           <button type="submit">Entrar</button>
           <hr />

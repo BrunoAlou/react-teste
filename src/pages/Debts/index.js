@@ -5,9 +5,8 @@ import { Form, Container, ContainerForm, ContainerList } from "./styles";
 import apiAdonis from "../../services/apiAdonis";
 import apiJson from "../../services/apiJson";
 
-const TOKEN = localStorage.getItem('$token-User');
+const TOKEN = localStorage.getItem("$token-User");
 class Debts extends Component {
-  
   state = {
     users: [],
     selectedUser: { name: "", id: 0 },
@@ -34,15 +33,15 @@ class Debts extends Component {
         console.log(error);
       });
 
-      const config = {
-          headers: { Authorization: `Bearer ${TOKEN}` }
-      };
-      await apiAdonis.get("/debt",config)
+    const config = {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    };
+    await apiAdonis
+      .get("/debt", config)
       .then((data) => {
         let usersDebts = data.data;
         this.setState({
-          debts: [
-          ].concat(usersDebts),
+          debts: [].concat(usersDebts),
         });
       })
       .catch((error) => {
@@ -50,20 +49,23 @@ class Debts extends Component {
       });
   }
 
-
   handleDebts = async (e) => {
     e.preventDefault();
     let user_id = this.state.selectedUser.id;
     let user_name = this.state.selectedUser.name;
     const { reason, date, value } = this.state;
     const config = {
-      headers: { Authorization: `Bearer ${TOKEN}` }
-  };
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    };
     if (!user_id || !user_name || !reason || !date || !value) {
       this.setState({ error: "Preencha todos os dados para se cadastrar" });
     } else {
       try {
-        await apiAdonis.post("/debt", { user_id, user_name, reason, date, value }, config);
+        await apiAdonis.post(
+          "/debt",
+          { user_id, user_name, reason, date, value },
+          config
+        );
       } catch (err) {
         console.log(err);
         this.setState({
@@ -86,15 +88,16 @@ class Debts extends Component {
               <ul>{debt.reason}</ul>
               <p>Data :</p>
               <ul>{debt.date}</ul>
-              <p>Valor: </p>                
+              <p>Valor: </p>
               <ul>{debt.value}</ul>
-
+              <button type="submit">Remover Dívida</button>
+              <button type="submit">Editar Dívida</button>
             </div>
           ))}
         </ContainerList>
         <ContainerForm>
           <Form onSubmit={this.handleDebts}>
-          <h1>Cadastro de Dívidas</h1>
+            <h1>Cadastro de Dívidas</h1>
             {this.state.error && <p>{this.state.error}</p>}
             <select
               value={this.state.selectedUser.name}
@@ -134,8 +137,12 @@ class Debts extends Component {
             <button type="submit">Cadastrar Dívida</button>
             <hr />
             <div>
-              <Link to="/" style={{ padding: '15px' }}>Login</Link>
-              <Link to="/" style={{ padding: '15px' }}>Logout</Link>
+              <Link to="/" style={{ padding: "15px" }}>
+                Login
+              </Link>
+              <Link to="/" style={{ padding: "15px" }}>
+                Logout
+              </Link>
             </div>
           </Form>
         </ContainerForm>

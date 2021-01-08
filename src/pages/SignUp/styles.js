@@ -5,16 +5,20 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background : #f5f5dc;
 `;
 
 export const Form = styled.form`
   width: 300px;
   height: 300px;
   background: #fff;
-  padding: 20px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  span{
+    color: red;
+  }
   p {
     color: #ff3333;
     margin-bottom: 15px;
